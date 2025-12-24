@@ -1,15 +1,14 @@
 package Model;
 
 import java.util.Date;
-import java.time.format.DateTimeFormatter;
 
 public class Order {
     private int orderId;
     private int userId;
     private int roomId;
-    private Date nowtime;
-    private Date starttime;
-    private Date endtime;
+    private String nowtime;
+    private String starttime;
+    private String endtime;
     String approvalstate;
 
     public int getRoomId() {
@@ -35,28 +34,27 @@ public class Order {
         this.roomId = roomId;
     }
 
-
-    public Date getNowtime() {
+    public String getNowtime() {
         return nowtime;
     }
 
-    public void setNowtime(Date nowtime) {
+    public void setNowtime(String nowtime) {
         this.nowtime = nowtime;
     }
 
-    public Date getStarttime() {
+    public String getStarttime() {
         return starttime;
     }
 
-    public void setStarttime(Date starttime) {
+    public void setStarttime(String starttime) {
         this.starttime = starttime;
     }
 
-    public Date getEndtime() {
+    public String getEndtime() {
         return endtime;
     }
 
-    public void setEndtime(Date endtime) {
+    public void setEndtime(String endtime) {
         this.endtime = endtime;
     }
 
@@ -71,7 +69,8 @@ public class Order {
     public Order() {
     }
 
-    public Order(int userId, int roomId, Date nowtime, Date starttime, Date endtime, String approvalstate) {
+    public Order(int orderId, int userId, int roomId, String nowtime, String starttime, String endtime, String approvalstate) {
+        this.orderId = orderId;
         this.userId = userId;
         this.roomId = roomId;
         this.nowtime = nowtime;

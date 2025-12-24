@@ -2,7 +2,6 @@ package Service;
 
 import Dao.RoomDao;
 import Model.Room;
-import Model.Type;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -55,10 +54,10 @@ public class RoomService {
         return count;
     }
     //获取某种类型的房间信息
-    public List<Room> GetTypeRoom(int typeid){
+    public List<Room> GetTypeRoom(String typename){
         List<Room> list=null;
         try {
-            list=roomDao.getTypeRoom(typeid);
+            list=roomDao.getTypeRoom(typename);
         } catch (SQLException e) {
             e.printStackTrace();
         }

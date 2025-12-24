@@ -21,20 +21,21 @@
             color: #333;
         }
         .container {
-            margin-top: 50px;
+            margin-top: 20px;
+            margin-bottom: 50px;
         }
         .header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
         }
         .header h1 {
             font-size: 30px;
             color: #007bff;
         }
         .card {
-            border: none;
+            border: 1px;
             border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgb(115, 99, 99);
             transition: transform 0.3s;
         }
         .card:hover {
@@ -46,6 +47,7 @@
         .card-body {
             text-align: center;
             padding: 20px;
+            margin-top: 30px;
         }
         .card-body h5 {
             font-size: 1.5rem;
@@ -81,7 +83,7 @@
             color: #dc3545; /* 红色 */
         }
         .state-maintenance {
-            color: #ffc107; /* 黄色 */
+            color: #cbbd00; /* 黄色 */
         }
         .card-title {
             font-size: 2rem;
@@ -89,7 +91,7 @@
     </style>
 </head>
 <body>
-<%@ include file="HomePage.jsp" %>
+<%@ include file="Header.jsp" %>
 <div class="container">
     <div class="header">
         <h1>${typename} 房间列表</h1>
@@ -146,6 +148,24 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">预订成功</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>您的房间预订已成功！</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     $('#reserveModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
@@ -153,6 +173,12 @@
         var modal = $(this);
         modal.find('#roomid').val(roomid);
     });
+    // 如果预订成功，显示成功模态框
+    <c:if test="${reservationSuccess}">
+    $(document).ready(function(){
+        $('#successModal').modal('show');
+    });
+    </c:if>
 </script>
 </body>
 </html>

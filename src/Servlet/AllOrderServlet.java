@@ -22,7 +22,7 @@ public class AllOrderServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
         int userid = user.getUserid();
         AllOrderService allOrderService = new AllOrderService();
-        List<Order> orderList= allOrderService.GetAllOrder();
+        List<Order> orderList= allOrderService.GetOrderById(userid);
         req.setAttribute("orderlist", orderList);
         req.getRequestDispatcher("AllOrder.jsp").forward(req, resp);
     }

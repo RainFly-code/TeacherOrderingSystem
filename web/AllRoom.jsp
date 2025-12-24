@@ -76,12 +76,12 @@
         }
         table, th, td {
             border: 1px solid #ddd;
-            text-align: center;  /* 确保所有单元格内容居中 */
+            text-align: center;
         }
         th, td {
-            padding: 20px;  /* 调整 padding 来增加行高 */
-            text-align: center;  /* 确保所有单元格内容居中 */
-            line-height: 1.5;  /* 可选：增加行高 */
+            padding: 20px;
+            text-align: center;
+            line-height: 1.5;
         }
         th {
             background-color: #f2f2f2;
@@ -120,28 +120,24 @@
     </style>
 </head>
 <body>
-<%@ include file="HomePage.jsp" %>
+<%@ include file="Header.jsp" %>
 <div class="container">
     <div class="content">
         <div class="instructions">
             <h1>房间列表</h1>
             <div class="lc">
                 <h3>预订流程</h3>
-                <p>1. 在“住宿申请”中填写、保存、提交教师公寓住宿申请。</p>
-                <p>2. 所在学院（部门）初审。</p>
-                <p>3. 人事处或人力办审核。</p>
-                <p>4. 公管处审批。</p>
-                <p>5. 审批通过后，轮候排队。</p>
-                <p>6. 在线选房并预订。</p>
-                <p>7. 预订成功后，前往公管处签订入住协议。</p>
-                <p>8. 到公寓所在地办理入住手续。</p>
+                <p>1. 选择可预订房间</p>
+                <p>2. 点击预定按钮</p>
+                <p>3. 选择入住时间</p>
+                <p>4. 等待管理员审批</p>
+                <p>5. 审批通过后，查看订单。</p>
+                <p>6. 前往大厅办理入住。</p>
                 <br>
                 <hr>
                 <h3>退房流程</h3>
                 <p>1.腾空个人物品，家具电器恢复摆放原样。</p>
-                <p>2.在“预约退房”中填写“退房申请表”，并进行预约退房。</p>
-                <p>3.到公寓所在地办理退宿手续。</p>
-                <p>4.到公管处结算租金、押金。</p>
+                <p>2.前往大厅办理退房</p>
             </div>
         </div>
 
@@ -215,7 +211,26 @@
         </div>
     </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- 预订成功模态框结构 -->
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">预订成功</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>您的房间预订已成功！</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     $('#reserveModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
@@ -223,6 +238,13 @@
         var modal = $(this);
         modal.find('#roomid').val(roomid);
     });
+
+    // 如果预订成功，显示成功模态框
+    <c:if test="${reservationSuccess}">
+    $(document).ready(function(){
+        $('#successModal').modal('show');
+    });
+    </c:if>
 </script>
 </body>
 </html>

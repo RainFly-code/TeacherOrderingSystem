@@ -9,10 +9,10 @@ import java.util.List;
 
 public class AllOrderService {
                 OrderDao orderDao = new OrderDao();
-                public List<Order> GetAllOrder(){
+                public List<Order> GetOrderById(int userid){
                     List<Order> list=null;
                     try {
-                        list=orderDao.getAllOrder();
+                        list=orderDao.getOrderByUserId(userid);
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }

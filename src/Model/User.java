@@ -4,6 +4,18 @@ import java.util.Objects;
 
 public class User {
     private int userid;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userid=" + userid +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", department='" + department + '\'' +
+                ", pnumber='" + pnumber + '\'' +
+                '}';
+    }
+
     private String name;
     private String password;
     private String department;

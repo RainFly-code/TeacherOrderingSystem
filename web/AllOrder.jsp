@@ -65,22 +65,28 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        .btn-cancel:hover {
-            background-color: #c82333;
+        .btn-cancel:disabled {
+            background-color: #cccccc;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
     </style>
 </head>
 <body>
-<%@ include file="HomePage.jsp" %>
+<%@ include file="Header.jsp" %>
 <div class="container">
     <div class="header">
-        <h1>预定订单列表</h1>
+        <h1>预约订单列表</h1>
     </div>
     <div class="table-container">
         <table class="table table-hover">
             <thead>
             <tr>
-                <th style="text-align: center">工号</th>
+                <th style="text-align: center">订单号</th>
                 <th style="text-align: center">房间号</th>
                 <th style="text-align: center">预定时间</th>
                 <th style="text-align: center">入住时间</th>
@@ -94,9 +100,9 @@
                 <tr>
                     <td>${order.orderId}</td>
                     <td>${order.roomId}</td>
-                    <td>${order.nowtime}</td>
-                    <td>${order.starttime}</td>
-                    <td>${order.endtime}</td>
+                    <td><span class="date-only">${order.nowtime}</span></td>
+                    <td><span class="date-only">${order.starttime}</span></td>
+                    <td><span class="date-only">${order.endtime}</span></td>
                     <td>${order.approvalstate}</td>
                     <td>
                         <button type="button" class="btn-cancel" data-toggle="modal" data-target="#cancelModal" data-orderid="${order.orderId}"
@@ -121,7 +127,7 @@
             </div>
             <div class="modal-body">
                 <p STYLE="text-align: center">确定要取消这个预订吗？</p>
-                <form action="#" style="text-align: center" method="post">
+                <form action="CancelOrderServlet" style="text-align: center" method="post">
                     <input type="hidden" name="orderid" id="orderid">
                     <button type="submit" class="btn btn-danger">取消预订</button>
                 </form>
@@ -129,14 +135,49 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">取消成功</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>您的预订已取消！</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 格式化并只显示日期部分
+        const dateElements = document.querySelectorAll('.date-only');
+        dateElements.forEach(element => {
+            const dateTime = element.textContent.trim();
+            if (dateTime) {
+                const date = dateTime.split(' ')[0];
+                element.textContent = date;
+            }
+        });
+    });
     $('#cancelModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
         var orderid = button.data('orderid');
         var modal = $(this);
         modal.find('#orderid').val(orderid);
     });
+    // 如果取消预订，显示取消成功模态框
+    <c:if test="${cancelSuccess}">
+    $(document).ready(function(){
+        $('#successModal').modal('show');
+    });
+    </c:if>
 </script>
 </body>
 </html>

@@ -1,6 +1,5 @@
 <%@ page import="Model.User" %>
 <%@ page import="Service.TypeService" %>
-<%@ page import="Model.Type" %>
 <%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
@@ -96,17 +95,17 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <li class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="AllRoom?typeid=0">全部房间</a></li>
+                    <li><a href="RoomServlet?typename=all">全部房间</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">房间分类 <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <%
                                 TypeService typeService = new TypeService();      //创建一个typeService，用于获取商品类型并显示
-                                List<Type> typeList = typeService.GetAllType();
+                                List<String> typeList = typeService.GetAllType();
                                 request.setAttribute("typeList",typeList);
                             %>
                             <c:forEach items="${typeList}" var="t">
-                                <li><a class="list" href="AllRoom?typeid=${t.typeid}">${t.typename}</a></li>
+                                <li><a class="list" href="RoomServlet?typename=${t}">${t}</a></li>
                             </c:forEach>
                         </ul>
                     </li>
@@ -114,7 +113,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <form action="goods_search">
+                        <form action="SearchServlet">
                             <input class="search-input" name="keyword" placeholder="请输入搜索房间信息">
                             <button class="search-btn glyphicon glyphicon-search "  type="submit" href="#"></button>
                         </form>
@@ -131,8 +130,8 @@
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="Personal-information.jsp">个人信息</a></li>
-                            <li><a href="order_list.jsp">我的订单</a></li>
+                            <li><a href="UserDetail.jsp">个人信息</a></li>
+                            <li><a href="UserFeedback.jsp">反馈</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="Login.jsp">退出登录</a></li>
                         </ul>

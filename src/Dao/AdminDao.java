@@ -13,5 +13,12 @@ public class AdminDao {
         String sql = "select * from admin where adminId=? and password=?";
         return r.query(sql, new BeanHandler<Admin>(Admin.class),adminId,password);
     }
+    public void insertAdmin(Admin admin) throws SQLException {
+        QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+        String sql = "INSERT INTO admin (adminId, password) VALUES (?,?)";
+        int id = admin.getAdminId();
+        String pa = admin.getPassword();
+        runner.update(sql, admin.getAdminId(),admin.getPassword());
+    }
 
 }

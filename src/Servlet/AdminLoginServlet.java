@@ -26,8 +26,8 @@ public class AdminLoginServlet extends HttpServlet {
             req.getRequestDispatcher("/AdminLogin.jsp").forward(req, resp);
         }else {
             //登陆成功
-            req.getSession().setAttribute("admin", admin); // 将用户信息存储在 session 中
-            req.getRequestDispatcher("/HomePage.jsp").forward(req, resp);
+            req.getSession().setAttribute("admin", admin);
+            req.getRequestDispatcher("/AdminHome.jsp").forward(req, resp);
         }
     }
     @Override

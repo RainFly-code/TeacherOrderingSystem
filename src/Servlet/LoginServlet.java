@@ -28,7 +28,8 @@ public class LoginServlet extends HttpServlet {
         }else {
             //登陆成功
             req.getSession().setAttribute("user", user); // 将用户信息存储在 session 中
-            req.getRequestDispatcher("AllRoom?roomid=0").forward(req, resp);
+            req.setAttribute("userid",user.getUserid());
+            req.getRequestDispatcher("RoomServlet?typename=all").forward(req, resp);
         }
     }
 

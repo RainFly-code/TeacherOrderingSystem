@@ -1,23 +1,20 @@
 package Servlet;
 
 import Model.Room;
-import Model.Type;
 import Service.RoomService;
-import Service.TypeService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import javax.swing.tree.RowMapper;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
-@WebServlet(name = "AllRoom", urlPatterns = "/AllRoom")
+@WebServlet(name = "RoomServlet", urlPatterns = "/RoomServlet")
 public class RoomServlet extends HttpServlet {
     private RoomService roomService = new RoomService();
-    private TypeService typeService = new TypeService();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req,resp);
@@ -25,10 +22,10 @@ public class RoomServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int typeid=0;
-        if(req.getParameter("typeid")!=null)
+        String typename = new String();
+        if(req.getParameter("typename")!=null)
         {
-            typeid=Integer.parseInt(req.getParameter("typeid"));
+            typename=req.getParameter("typename");
         }
         int count1 = roomService.GetAllCount();
         int count2 = roomService.getAllOrderCount();
@@ -38,14 +35,13 @@ public class RoomServlet extends HttpServlet {
         req.setAttribute("count2",count2);
         req.setAttribute("count3",count3);
         req.setAttribute("count4",count4);
-        if(typeid == 0){
+        if(Objects.equals(typename, "all")){
             List<Room> roomList = roomService.GetAllRoom();
             req.setAttribute("roomList", roomList);
             req.getRequestDispatcher("AllRoom.jsp").forward(req, resp);
         }else {
-            List<Room> roomList = roomService.GetTypeRoom(typeid);
-            Type type = typeService.selectTypeNameByID(typeid);
-            req.setAttribute("typename",type.getTypename());
+            List<Room> roomList = roomService.GetTypeRoom(typename);
+            req.setAttribute("typename",typename);
             req.setAttribute("roomList", roomList);
             req.getRequestDispatcher("TypeRoom.jsp").forward(req, resp);
         }
